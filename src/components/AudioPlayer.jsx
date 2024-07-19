@@ -19,8 +19,9 @@ const AudioPlayer = ({ audioSrc }) => {
     //범위 입력 값에 따라 오디오의 현재 시간을 업데이트
     audioRef.current.currentTime = e.target.value;
     setCurrentTime(e.target.value);
-  };
-
+    
+};
+ 
   //오디오의 현재 시간과 지속 시간을 업데이트
   const handleTimeUpdate = () => {
     setCurrentTime(audioRef.current.currentTime);
@@ -70,22 +71,37 @@ const AudioPlayer = ({ audioSrc }) => {
     <div className="player-card">
       <img src="./asset/thumb.jpg" alt="Cover Image" />
 
-      {/* 오디오 트랙 */}
+      <h3>When Will My Life Begin?</h3>
+
       <input type="range" min="0" max={duration} value={currentTime} onChange={handleSeek} />
 
       {/* 오디오  */}
       <audio ref={audioRef} src={audioSrc} />
 
-      {/* 재생 시간과 전체 시간 표시  */}
-      <div className="track-duration">
-        <p>{formatDuration(currentTime)}</p>
-        <p>{formatDuration(duration)}</p>
-      </div>
+      <div className="control">
+        <div className="btnArea">
+          <button>
+            <img src={process.env.PUBLIC_URL + "/asset/preBtn.svg"} style={{ width: "16px" }} />
+          </button>
 
-      {/* 재생/정지 버튼 */}
-      <button onClick={handlePlayPause}>
-        <span>{isPlaying ? "⏸️" : "▶️"}</span>
-      </button>
+          {/* 재생/정지 버튼 */}
+          <button onClick={handlePlayPause}>
+            {isPlaying ? (
+              <img src={process.env.PUBLIC_URL + "/asset/pauseBtn.svg"} style={{ width: "28px" }} />
+            ) : (
+              <img src={process.env.PUBLIC_URL + "/asset/playBtn.svg"} style={{ width: "28px" }} />
+            )}
+          </button>
+
+          <button>
+            <img src={process.env.PUBLIC_URL + "/asset/nextBtn.svg"} style={{ width: "16px" }} />
+          </button>
+        </div>
+        <div className="track-duration">
+          <p>{formatDuration(currentTime)}</p>
+          <p>{formatDuration(duration)}</p>
+        </div>
+      </div>
     </div>
   );
 };
